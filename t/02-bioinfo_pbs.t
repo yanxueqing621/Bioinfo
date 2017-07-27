@@ -4,11 +4,11 @@ use IO::All;
 
 my $module;
 BEGIN {
-$module = 'Bioinfo';
-use_ok($module);
+  $module = 'Bioinfo::PBS';
+  use_ok($module);
 }
-my @attrs = qw();
-my @methods = qw();
+my @attrs = qw(cpu name cmd path job_id);
+my @methods = qw(get_sh qsub wait job_stat);
 can_ok($module, $_) for @attrs;
 can_ok($module, $_) for @methods;
 

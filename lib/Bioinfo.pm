@@ -4,7 +4,7 @@ use Modern::Perl;
 use namespace::clean;
 
 # VERSION: 
-# ABSTRACT: 
+# ABSTRACT: my perl module and CLIs for Biology
 
 =head1 SYNOPSIS
 
@@ -13,10 +13,7 @@ use namespace::clean;
 
 =head1 DESCRIPTION
 
-
-
 =cut
 
 1;
-
 
