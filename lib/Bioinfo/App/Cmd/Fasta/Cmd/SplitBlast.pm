@@ -55,7 +55,7 @@ the database that blast will use
 
 option db => (
   is  => 'rw',
-  fomrat => 's',
+  format => 's',
   short => 'd',
   default => sub { 'nr_plant' },
   doc => 'the database that blast will use',
@@ -119,7 +119,7 @@ option prefix => (
   is => 'ro',
   format => 's',
   short => 'p',
-  default => sub { 'prefix' },
+  default => sub { '' },
   doc => 'the prefix of the split file',
 );
 
@@ -193,14 +193,14 @@ sub submit_pbs {
     }
   )->all_files;
 
-  my $queue_name = $input->filename;
+  my $queue_name = io($input)->filename;
   $queue_name =~s/\.fa|\.pep|\.fasta//;
   say "PBS Queue name: $queue_name";
   chdir "$outdir";
   my $pbs = Bioinfo::PBS::Queue->new(name => $queue_name);
   for my $fa (@io_fas) {
-    my $cmd = "blastp -query $fa -out $fa.blast -db $db -outfmt 5 -evalue 1e-5 -num_threads $cpu -max_target_seqs 10";
     my $fa_name = $fa->filename;
+    my $cmd = "blastp -query $fa_name -out $fa_name.blast -db $db -outfmt 5 -evalue 1e-5 -num_threads $cpu -max_target_seqs 10";
     $fa_name =~s/\.fa|\.pep|\.fasta//;
     my $para = {
       cpu => $cpu,
@@ -222,7 +222,7 @@ sub local_blast {
     }
   )->all_files;
 
-  my $in_name = $input->filename;
+  my $in_name = io($input)->filename;
   $in_name =~s/\.fa|\.fasta|\.pep//;
   chdir "$outdir";
   use Parallel::ForkManager;
@@ -230,7 +230,8 @@ sub local_blast {
   LOOP_DATA:
   for my $fa (@io_fas) {
     my $pid = $pm->start and next LOOP_DATA;
-    my $cmd = "blastp -query $fa -out $fa.blast -db $db -outfmt 5 -evalue 1e-5 -num_threads $cpu -max_target_seqs 10";
+    my $fa_name = $fa->filename;
+    my $cmd = "blastp -query $fa_name -out $fa.blast -db $db -outfmt 5 -evalue 1e-5 -num_threads $cpu -max_target_seqs 10";
     system($cmd);
     $pm->finish;
   }
