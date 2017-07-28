@@ -1,0 +1,11 @@
+#!/usr/bin/env perl
+use Modern::Perl;
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+use Bioinfo::App;
+
+# VERSION
+# ABSTRACT: a bioinformatics toolkit that I used often
+# PODNAME: biotools
+
+Bioinfo::App->new_with_cmd;
