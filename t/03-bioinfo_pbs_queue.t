@@ -8,7 +8,7 @@ BEGIN {
   $module = 'Bioinfo::PBS::Queue';
   use_ok($module);
 }
-my @attrs = qw(tasks name running_queue finished_queue stage);
+my @attrs = qw(tasks name run_queue finished_queue stage);
 my @methods = qw(execute);
 can_ok($module, $_) for @attrs;
 can_ok($module, $_) for @methods;
