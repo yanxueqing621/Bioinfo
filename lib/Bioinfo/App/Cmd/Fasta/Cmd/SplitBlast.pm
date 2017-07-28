@@ -43,6 +43,7 @@ option num => (
   is  => 'ro',
   format  => 'i',
   short => 'n',
+  default => sub { '6' },
   doc => 'number of files that the fasta file will be split'
 );
 
@@ -92,6 +93,7 @@ option cpu => (
   is => 'ro',
   format => 'i',
   short => 'c',
+  default => sub { '4' },
   doc => "cpu number used in one node"
 );
 
@@ -103,6 +105,7 @@ option outdir => (
   is => 'ro',
   format => 's',
   short => 'o',
+  default => sub { './' },
   doc => 'outdir of split files',
 );
 
@@ -116,6 +119,7 @@ option prefix => (
   is => 'ro',
   format => 's',
   short => 'p',
+  default => sub { 'prefix' },
   doc => 'the prefix of the split file',
 );
 
@@ -173,6 +177,11 @@ sub execute {
     say "$single_file_name\t$file_base_tmp";
   }
   say "finished to split $input, outdir is :$outdir";
+  if ($self->type eq 'pbs') {
+    $self->submit_pbs;
+  } else {
+    $self->local_blast;
+  }
 }
 
 # submit PBS queue
