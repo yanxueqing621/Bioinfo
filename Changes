@@ -3,7 +3,23 @@ Changes from 2017-05-29 00:00:00 +0000 to present.
 ==================================================
 
 ------------------------------------------
-version 0.1.0 at 2017-07-28 09:45:35 +0000
+version 0.1.1 at 2017-07-28 10:38:00 +0000
+------------------------------------------
+
+  Change: 4a97669590f5ebaa31a168a287bbfc58d22c8828
+  Author: Yan Xueqing <yanxueqing621@163.com>
+  Date : 2017-07-28 18:37:51 +0000
+
+    Added function of uploading to cpan automatically 
+
+  Change: 37fdba6ea06cc1e1cb46e684500445ef0e804ec9
+  Author: Yan Xueqing <yanxueqing621@163.com>
+  Date : 2017-07-28 18:34:33 +0000
+
+    Fixed SplitBlast bug 
+
+------------------------------------------
+version 0.1.0 at 2017-07-28 09:45:39 +0000
 ------------------------------------------
 
   Change: 3fc5c3a80cb28d189a224d3f13136c874a5d6db2
