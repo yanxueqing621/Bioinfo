@@ -231,13 +231,13 @@ sub local_blast {
   for my $fa (@io_fas) {
     my $pid = $pm->start and next LOOP_DATA;
     my $fa_name = $fa->filename;
-    my $cmd = "blastp -query $fa_name -out $fa.blast -db $db -outfmt 5 -evalue 1e-5 -num_threads $cpu -max_target_seqs 10";
+    my $cmd = "blastp -query $fa_name -out $fa.xml -db $db -outfmt 5 -evalue 1e-5 -num_threads $cpu -max_target_seqs 10";
     system($cmd);
     $pm->finish;
   }
   $pm->wait_all_chilren;
-  system("cat *.blast >$in_name.blast");
-  say "finished all"
+  system("cat *.blast >$in_name.xml");
+  say "finished all";
 }
 
 1;
