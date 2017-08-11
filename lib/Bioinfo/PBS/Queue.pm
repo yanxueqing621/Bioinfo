@@ -81,6 +81,12 @@ has name => (
   default => sub { 'pbs' },
 );
 
+has task_running_num => (
+  is  => 'rw',
+  isa => 'Int',
+  default => sub { '1' }
+);
+
 has _log => (
   is  => 'rw',
   isa => 'IO::All',
@@ -131,13 +137,15 @@ run all tasks in the queue by the order
 
 sub execute {
   my $self = shift;
+  my $task_run_num = $self->task_running_num;
   my @tasks =  $self->all_tasks;
   my @stages = uniq (map { $_->priority } @tasks);
   for my $stage (@stages) {
     $self->_log->lock->append("# Stage$stage: running\n")->unlock;
     say "Stage $stage";
     my @stage_tasks = $self->filter_tasks( sub {$_->priority == $stage} );
-    my $pm = Parallel::ForkManager->new($#stage_tasks+1);
+    my $paralell_num = $task_run_num || ($#stage_tasks + 1);
+    my $pm = Parallel::ForkManager->new($paralell_num);
     DATA_LOOP:
     for my $task (@stage_tasks) {
       sleep 1;
