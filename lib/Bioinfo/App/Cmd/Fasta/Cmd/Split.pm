@@ -66,6 +66,7 @@ option prefix => (
   is => 'ro',
   format => 's',
   short => 'p',
+  default => sub { '' },
   doc => 'the prefix of the split file',
 );
 
