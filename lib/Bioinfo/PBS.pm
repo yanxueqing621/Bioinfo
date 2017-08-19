@@ -128,6 +128,7 @@ sub get_sh {
   my ($self, $sh_name) = @_;
   $sh_name ||= $self->name . "_" . time . ".sh";
   my ($path, $cmd) = ($self->path, $self->cmd);
+  chdir $path;
   my $sh_content =<<EOF;
 cd $path
 echo "Directory is $path"
