@@ -51,6 +51,7 @@ option output => (
 );
 
 my $out_handle;
+my $out_handle_s;
 
 =head1 METHODS
 
@@ -63,6 +64,7 @@ sub execute {
   $self->options_usage unless (@$args_ref);
   my $input = $self->input;
   $out_handle = io($self->output);
+  $out_handle_s = io($self->output . ".m8");
   my $twig = XML::Twig->new(
     twig_handlers => {
       Iteration => \&_iteration,
@@ -109,6 +111,9 @@ sub _iteration {
       my @cols = ($query_name, $hit_name, $identity, $len, $mismatches, $gaps, $q_start, $q_end, $s_start, $s_end, $evalue, $score, $hit_def);
       my $line = join("\t", @cols) . "\n";
       $out_handle->print($line);
+      pop (@cols);
+      $line = join("\t", @cols) . "\n";
+      $out_handle_s->print($line);
     }
   }
   $iteration->purge;
