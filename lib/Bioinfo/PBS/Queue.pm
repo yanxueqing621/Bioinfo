@@ -145,6 +145,8 @@ sub execute {
   my $task_run_num = $self->parallel;
   my @tasks =  $self->all_tasks;
   my @stages = uniq (map { $_->priority } @tasks);
+  my $content = "name\tcpu\tpriority\tsh_name\tjob_id\tstat\tcmd\n";
+  $self->_log->lock->append($content)->unlock;
   for my $stage (@stages) {
     $self->_log->lock->append("# Stage$stage: running\n")->unlock;
     say "Stage $stage";
@@ -160,7 +162,7 @@ sub execute {
       $task->qsub->wait;
       say "$name  finished\n";
       my ($stat, $job_id, $sh_name) = ($task->job_stat, $task->job_id, $task->_sh_name);
-      my $content = "$name\t$cpu\t$priority\t$sh_name\t$job_id\t$stat\t$cmd\n";
+      $content = "$name\t$cpu\t$priority\t$sh_name\t$job_id\t$stat\t$cmd\n";
       #say "$content";
       #my $log_name = $self->name . ".log";
       #io($log_name)->lock->append($content)->unlock;
