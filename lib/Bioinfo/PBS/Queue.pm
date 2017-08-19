@@ -19,6 +19,11 @@ use namespace::autoclean;
     cmd => 'ls -alh; pwd',
   };
   my $pbs_obj = Bioinfo::PBS->new($para);
+
+  # three tasks are running at the same time
+  my $queue_obj = Bioinfo::PBS::Queue->new(name => 'blastnr', parallel => 3);
+
+  # all tasks will be running at the same time if parallel is not setted
   my $queue_obj = Bioinfo::PBS::Queue->new(name => 'blastnr');
   $queue_obj->add_tasks($pbs_obj);
   $queue_obj->add_tasks($pbs_obj);
@@ -81,7 +86,7 @@ has name => (
   default => sub { 'pbs' },
 );
 
-has task_running_num => (
+has parallel => (
   is  => 'rw',
   isa => 'Int',
   default => sub { '1' }
@@ -137,7 +142,7 @@ run all tasks in the queue by the order
 
 sub execute {
   my $self = shift;
-  my $task_run_num = $self->task_running_num;
+  my $task_run_num = $self->parallel;
   my @tasks =  $self->all_tasks;
   my @stages = uniq (map { $_->priority } @tasks);
   for my $stage (@stages) {
