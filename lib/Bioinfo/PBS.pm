@@ -132,7 +132,7 @@ sub get_sh {
   my $sh_content =<<EOF;
 cd $path
 echo "Directory is $path"
-NP = `cat \$PBS_NODEFILE|wc -l`
+NP=`cat \$PBS_NODEFILE|wc -l`
 echo \$NP
 echo "Work dir is \$PBS_O_WORKDIR"
 echo "Excuting Hosts is flowing:"
