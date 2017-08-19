@@ -3,7 +3,35 @@ Changes from 2017-06-20 00:00:00 +0000 to present.
 ==================================================
 
 ------------------------------------------
-version 0.1.5 at 2017-08-19 04:38:20 +0000
+version 0.1.6 at 2017-08-19 15:37:09 +0000
+------------------------------------------
+
+  Change: a04acd58160c8c99deec965394405f230b546bdd
+  Author: Yan Xueqing <yanxueqing621@163.com>
+  Date : 2017-08-19 23:36:40 +0000
+
+    Added batch splitsubmit2 module 
+
+  Change: ae1f2c2bdb3b810479665c7386d321dcc8f34e59
+  Author: Yan Xueqing <yanxueqing621@163.com>
+  Date : 2017-08-19 23:09:55 +0000
+
+    Fixed a minor error 
+
+  Change: f90c923ae026168a98b63e4e499327236c99859b
+  Author: Yan Xueqing <yanxueqing621@163.com>
+  Date : 2017-08-19 14:45:46 +0000
+
+    Added \n to log file 
+
+  Change: 95da271f0d1c3fcf8c2c95fdeb936b6c17ee8831
+  Author: Yan Xueqing <yanxueqing621@163.com>
+  Date : 2017-08-19 14:45:00 +0000
+
+    Added result file of m8 format in ParseXML command 
+
+------------------------------------------
+version 0.1.5 at 2017-08-19 04:38:36 +0000
 ------------------------------------------
 
   Change: 43c79d6a6d89df5f210b94245b515f9cf9bbb911
