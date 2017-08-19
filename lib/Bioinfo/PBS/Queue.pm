@@ -156,9 +156,9 @@ sub execute {
       sleep 1;
       my ($name, $cpu, $cmd, $priority) = ($task->name, $task->cpu, $task->cmd, $task->priority);
       my $pid = $pm->start and next DATA_LOOP;
-      say "CMD:$cmd will be submitted";
+      say "CMD1:$cmd will be submitted\n";
       $task->qsub->wait;
-      say "CMD:$cmd  finished";
+      say "CMD2:$cmd  finished\n";
       my ($stat, $job_id, $sh_name) = ($task->job_stat, $task->job_id, $task->_sh_name);
       my $content = "$name\t$cpu\t$priority\t$sh_name\t$job_id\t$stat\t$cmd\n";
       say "$content";

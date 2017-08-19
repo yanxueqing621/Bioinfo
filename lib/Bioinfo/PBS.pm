@@ -145,7 +145,7 @@ echo "DONE";
 EOF
   io($sh_name)->print($sh_content);
   $self->_sh_name($sh_name);
-  say "task setted attr sh_name:". $self->_sh_name;
+  say "task setted attr sh_name:". $self->_sh_name. "\n";
   return $sh_name;
 }
 
@@ -160,12 +160,12 @@ sub qsub {
   my $sh_name = $self->get_sh;
   my ($name, $cpu) = ($self->name, $self->cpu);
   my $qsub_result = `qsub -l nodes=1:ppn=$cpu -N $name $sh_name`;
-  say "$qsub_result";
+  say "$qsub_result\n";
   if ($qsub_result =~/^(\d+?)\./) {
-    say "job_id: $1";
+    say "job_id: $1\n";
     $self->_set_job_id($1);
   } else {
-    say "Error: fail to qsub $sh_name; \n $qsub_result";
+    say "Error: fail to qsub $sh_name; \nqsub output: $qsub_result\n";
   }
   return $self;
 }
