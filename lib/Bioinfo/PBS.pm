@@ -134,7 +134,6 @@ cd $path
 echo "Directory is $path"
 NP=`cat \$PBS_NODEFILE|wc -l`
 echo \$NP
-echo "Work dir is \$PBS_O_WORKDIR"
 echo "Excuting Hosts is flowing:"
 cat \$PBS_NODEFILE
 echo "begin time: `date`"
@@ -145,7 +144,7 @@ echo "DONE";
 EOF
   io($sh_name)->print($sh_content);
   $self->_sh_name($sh_name);
-  say "task setted attr sh_name:". $self->_sh_name. "\n";
+  #say "task setted attr sh_name:". $self->_sh_name. "\n";
   return $sh_name;
 }
 
@@ -160,7 +159,7 @@ sub qsub {
   my $sh_name = $self->get_sh;
   my ($name, $cpu) = ($self->name, $self->cpu);
   my $qsub_result = `qsub -l nodes=1:ppn=$cpu -N $name $sh_name`;
-  say "$qsub_result\n";
+  say "qsub result: $qsub_result\n";
   if ($qsub_result =~/^(\d+?)\./) {
     say "job_id: $1\n";
     $self->_set_job_id($1);

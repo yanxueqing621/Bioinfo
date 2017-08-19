@@ -156,12 +156,12 @@ sub execute {
       sleep 1;
       my ($name, $cpu, $cmd, $priority) = ($task->name, $task->cpu, $task->cmd, $task->priority);
       my $pid = $pm->start and next DATA_LOOP;
-      say "CMD1:$cmd will be submitted\n";
+      say "$name will be submitted\n";
       $task->qsub->wait;
-      say "CMD2:$cmd  finished\n";
+      say "$name  finished\n";
       my ($stat, $job_id, $sh_name) = ($task->job_stat, $task->job_id, $task->_sh_name);
       my $content = "$name\t$cpu\t$priority\t$sh_name\t$job_id\t$stat\t$cmd\n";
-      say "$content";
+      #say "$content";
       #my $log_name = $self->name . ".log";
       #io($log_name)->lock->append($content)->unlock;
       $self->_log->lock->append($content)->unlock;

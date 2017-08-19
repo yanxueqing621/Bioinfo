@@ -197,7 +197,7 @@ sub execute {
   my $outfmt = $self->outfmt;
   my @fa_dirs;
 
-  my @io_fas = io($indir)->filter(sub {$_->filename =~/\.pep|\.fa|\.fasta/})->all_files;
+  my @io_fas = io($indir)->filter(sub {$_->filename =~/\.pep$|\.fa$|\.fasta$/})->all_files;
   my $pbs = Bioinfo::PBS::Queue->new( name => $queue_name,
                                       parallel => $parallel_task_num);
 
@@ -213,16 +213,16 @@ sub execute {
       my $fasta = "$prefix$i.fa";
       my $cmd;
       if ($outfmt == 5) {
-        say "blast output mode: 5";
+        #say "blast output mode: 5";
         my $outfile = "$fasta.xml";
         $cmd = "$blast -query $fasta -out $outfile -db $db -outfmt $outfmt  -evalue 1e-5 -num_threads $cpu -max_target_seqs $max_target_seqs";
         $cmd .= "\nbiotools blast parsexml -i $outfile -o $fasta.xls";
       } else {
-        say "blast output mode: 6";
+        #say "blast output mode: 6";
         my $outfile = "$fasta.xls";
         $cmd = "$blast -query $fasta -out $outfile -db $db -outfmt $outfmt  -evalue 1e-5 -num_threads $cpu -max_target_seqs $max_target_seqs";
       }
-      say $cmd;
+      # say $cmd;
       my $para = {
         cpu => $cpu,
         name => $i,
@@ -235,6 +235,7 @@ sub execute {
   $pbs->execute;
   for my $dir (@fa_dirs) {
     system("cat $dir/*xls >$dir/$dir.xls")
+    system("cat $dir/*xls.m8 >$dir/$dir.xls.m8")
   }
   say "finished";
 
