@@ -1,4 +1,4 @@
-package Bioinfo::App::Cmd::Blast::Cmd::SplitSubmitB2;
+package Bioinfo::App::Cmd::Blast::Cmd::SplitSubmitB;
 use Modern::Perl;
 use Moo;
 use MooX::Cmd;
@@ -11,11 +11,11 @@ use Bioinfo::PBS::Queue;
 
 =head1 SYNOPSIS
 
-  use Bioinfo::App::Cmd::Blast::Cmd::SplitSubmit;
+  use Bioinfo::App::Cmd::Blast::Cmd::SplitSubmitB;
   Bioinfo::App::Cmd::Blast::Cmd::SplitSubmit->new_with_cmd;
 
   example:
-  biotools blast splitsubmitb2 -c 1 -d /home/jiaoyuannian/yangbaixue/yxq/3.3.pep/t/tcu -i ./ -m 2 -p 7 -s 10 -n blastt
+  biotools blast splitsubmitb -c 1 -d /path/db -i ./ -m 2 -p 7 -s 10 -n blastt
 
 =head1 DESCRIPTION
 
@@ -48,7 +48,7 @@ option split_num => (
   format  => 'i',
   short => 's',
   default => sub { '20' },
-  doc => 'number of files that the fasta file will be split'
+  doc => 'number of files that the fasta file will be split. Default:20'
 );
 
 =head2 blast_cpu
@@ -62,7 +62,7 @@ option blast_cpu => (
   format => 'i',
   short => 'c',
   default => sub { '8' },
-  doc => 'cpu number will be used by blastp in each node of Cluster',
+  doc => 'cpu number will be used by blastp in each node of Cluster.default:8',
 );
 
 =head2 parallel_task_num
@@ -76,7 +76,7 @@ option parallel_task_num => (
   format => 'i',
   short => 'p',
   default => sub { '20' },
-  doc => 'the task number will be running at the same time',
+  doc => 'the task number will be running at the same time. default:20',
 );
 
 =head2 db
@@ -90,7 +90,7 @@ option db => (
   format => 's',
   short => 'd',
   default => sub { 'nr_plant' },
-  doc => 'the database that blast will use, should be absolute path',
+  doc => 'the database that blast will use, should be absolute path. default:nr_plant',
 );
 
 =head2 type
@@ -130,7 +130,7 @@ option queue_name => (
   format => 's',
   short => 'n',
   default => sub { 'blast_' . time },
-  doc => 'which blast program will be used default:blastp',
+  doc => 'which blast program will be used default:blast.time',
 );
 
 =head2 max_target_seqs
@@ -144,7 +144,7 @@ option max_target_seqs => (
   format => 's',
   short => 'm',
   default => sub { 10 },
-  doc => 'the parameter used in blast',
+  doc => 'the parameter used in blast. default:10',
 );
 
 =head2 outfmt
@@ -158,7 +158,7 @@ option outfmt => (
   format => 's',
   short => 'f',
   default => sub { 5 },
-  doc => 'the parameter used in blast',
+  doc => 'the parameter used in blast default:5',
 );
 
 =head2 prefix
@@ -172,7 +172,7 @@ option prefix => (
   format => 's',
   short => 'x',
   default => sub { '' },
-  doc => 'the prefix of the split file',
+  doc => 'the prefix of the split file,
 );
 
 
