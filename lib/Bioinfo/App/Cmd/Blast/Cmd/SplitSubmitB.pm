@@ -189,7 +189,8 @@ sub execute {
   my $blast = $self->blast;
   my $cpu = $self->blast_cpu;
   my $parallel_task_num = $self->parallel_task_num;
-  my $db = io($self->db)->absolute->pathname;
+  #my $db = io($self->db)->absolute->pathname;
+  my $db = $self->db;
   my $queue_name = $self->queue_name;
   my $split_num = $self->split_num;
   my $prefix = $self->prefix;
