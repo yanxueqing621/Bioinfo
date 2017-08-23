@@ -1,10 +1,40 @@
 ==================================================
-Changes from 2017-06-20 00:00:00 +0000 to present.
+Changes from 2017-06-24 00:00:00 +0000 to present.
 ==================================================
 
 ------------------------------------------
-version 0.1.7 at 2017-08-19 17:10:33 +0000
+version 0.1.7 at 2017-08-23 06:31:41 +0000
 ------------------------------------------
+
+  Change: 9868adf08b944df9f8c2743404b7d2b0799c5c78
+  Author: Yan Xueqing <yanxueqing621@163.com>
+  Date : 2017-08-23 14:31:30 +0000
+
+    nonsense summit 
+
+  Change: f1234dd5fad28e9b142a0ae5119ec0ed19449365
+  Author: Yan Xueqing <yanxueqing621@163.com>
+  Date : 2017-08-23 14:14:18 +0000
+
+    Fixed blastp should use -parse_deflines and makeblastdb should use -parse_seqids 
+
+  Change: 0bab67f24ba0b416fbd2f4bd012901ae0b690a3d
+  Author: Yan Xueqing <yanxueqing621@163.com>
+  Date : 2017-08-20 10:23:56 +0000
+
+    Fixed some compile error 
+
+  Change: ef8c2490f19aca09c1b14038bf6b6fff28af33c7
+  Author: Yan Xueqing <yanxueqing621@163.com>
+  Date : 2017-08-20 09:47:08 +0000
+
+    Fixed db path problem, you must specified a absolute path 
+
+  Change: 4d67323ce4440f3c051185f47efe170940c8f04d
+  Author: Yan Xueqing <yanxueqing621@163.com>
+  Date : 2017-08-20 09:40:09 +0000
+
+    Renamed SplitSubmitB2.pm to SplitSubmitB.pm 
 
   Change: a0497195a40ea7539c82d456340036c51380b09d
   Author: Yan Xueqing <yanxueqing621@163.com>
@@ -149,5 +179,5 @@ version 0.1.0 at 2017-07-28 09:45:39 +0000
     Initialize gitrepo with `dzil new` 
 
 ================================================
-Plus 2 releases after 2017-06-20 00:00:00 +0000.
+Plus 2 releases after 2017-06-24 00:00:00 +0000.
 ================================================
