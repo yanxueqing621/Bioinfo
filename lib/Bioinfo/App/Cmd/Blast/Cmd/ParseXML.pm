@@ -84,7 +84,7 @@ sub _iteration {
   my ($self, $iteration) = @_;
 
   # iteration's content
-  my $query_name = $iteration->first_child_text("Iteration_query-def");
+  my $query_name = $iteration->first_child_text("Iteration_query-ID");
   my @hits = $iteration->descendants("Hit");
   for my $hit (@hits) {
 

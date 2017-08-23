@@ -175,6 +175,21 @@ option prefix => (
   doc => 'the prefix of the split file',
 );
 
+=head2 evalue
+
+parameter passed to blast
+
+=cut
+
+option evalue => (
+  is => 'ro',
+  format => 's',
+  short => 'e',
+  default => sub { '1e-5' },
+  doc => 'evalue parameter passed to blast',
+);
+
+
 
 =head1 METHODS
 
@@ -196,6 +211,7 @@ sub execute {
   my $prefix = $self->prefix;
   my $max_target_seqs = $self->max_target_seqs;
   my $outfmt = $self->outfmt;
+  my $evalue = $self->evalue;
   my @fa_dirs;
 
   my @io_fas = io($indir)->filter(sub {$_->filename =~/\.pep$|\.fa$|\.fasta$/})->all_files;
@@ -216,12 +232,12 @@ sub execute {
       if ($outfmt == 5) {
         #say "blast output mode: 5";
         my $outfile = "$fasta.xml";
-        $cmd = "$blast -query $fasta -out $outfile -db $db -outfmt $outfmt  -evalue 1e-5 -num_threads $cpu -max_target_seqs $max_target_seqs";
+        $cmd = "$blast -query $fasta -out $outfile -db $db -parse_deflines -outfmt $outfmt  -evalue $evalue -num_threads $cpu -max_target_seqs $max_target_seqs";
         $cmd .= "\nbiotools blast parsexml -i $outfile -o $fasta.xls";
       } else {
         #say "blast output mode: 6";
         my $outfile = "$fasta.xls";
-        $cmd = "$blast -query $fasta -out $outfile -db $db -outfmt $outfmt  -evalue 1e-5 -num_threads $cpu -max_target_seqs $max_target_seqs";
+        $cmd = "$blast -query $fasta -out $outfile -db $db -parse_deflines -outfmt $outfmt  -evalue $evalue -num_threads $cpu -max_target_seqs $max_target_seqs";
       }
       # say $cmd;
       my $para = {
