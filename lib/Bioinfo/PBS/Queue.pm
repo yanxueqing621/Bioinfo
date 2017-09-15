@@ -89,7 +89,8 @@ has name => (
 has parallel => (
   is  => 'rw',
   isa => 'Int',
-  default => sub { '1' }
+  lazy => 1,
+  default => sub { shift->count_tasks }
 );
 
 has _log => (
@@ -142,8 +143,8 @@ run all tasks in the queue by the order
 
 sub execute {
   my $self = shift;
-  my $task_run_num = $self->parallel;
   my @tasks =  $self->all_tasks;
+  my $task_run_num = $self->parallel;
   my @stages = uniq (map { $_->priority } @tasks);
   my $content = "name\tcpu\tpriority\tsh_name\tjob_id\tstat\tcmd\n";
   $self->_log->lock->append($content)->unlock;
