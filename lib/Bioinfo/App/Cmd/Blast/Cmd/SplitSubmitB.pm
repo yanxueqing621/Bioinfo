@@ -251,8 +251,8 @@ sub execute {
   }
   $pbs->execute;
   for my $dir (@fa_dirs) {
-    system("cat $dir/*xls >$dir/$dir.xls");
-    system("cat $dir/*xls.m8 >$dir/$dir.xls.m8");
+    system("cat $dir/*xls >$dir.xls");
+    system("cat $dir/*xls.m8 >$dir.xls.m8");
   }
   say "finished";
 
