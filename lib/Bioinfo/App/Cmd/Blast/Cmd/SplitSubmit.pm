@@ -100,6 +100,19 @@ option cpu => (
   doc => "cpu number used in one node"
 );
 
+=head2 max_target_seqs
+
+=cut
+
+option max_target_seqs => (
+  is => 'ro',
+  format => 'i',
+  short => 'm',
+  default => sub { '10000' },
+  doc => "max_target_seqs"
+);
+
+
 =head2 outdir
 
 =cut
@@ -191,6 +204,7 @@ sub execute {
 sub submit_pbs {
   my $self = shift;
   my ($input, $outdir, $cpu, $db) = ($self->input, $self->outdir, $self->cpu, $self->db);
+  my $max_target_seqs = $self->max_target_seqs;
   my @io_fas = io("$outdir")->filter( sub {
       $_->filename =~/\.fa/;
     }
