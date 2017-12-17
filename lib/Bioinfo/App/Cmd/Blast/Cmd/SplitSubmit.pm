@@ -109,10 +109,32 @@ option max_target_seqs => (
   format => 'i',
   short => 'm',
   default => sub { '10000' },
-  doc => "max_target_seqs"
+  doc => "max_target_seqs, Default:10000"
 );
 
+=head2 evalue
 
+=cut
+
+option evalue => (
+  is => 'ro',
+  format => 's',
+  short => 'e',
+  default => sub { '1e-5' },
+  doc => "evalue, Default:1e-5"
+);
+
+=head2 outfmt
+
+=cut
+
+option outfmt => (
+  is => 'ro',
+  format => 'i',
+  short => 'f',
+  default => sub { 5 },
+  doc => "outfmt, Default:5"
+);
 =head2 outdir
 
 =cut
@@ -205,6 +227,8 @@ sub submit_pbs {
   my $self = shift;
   my ($input, $outdir, $cpu, $db) = ($self->input, $self->outdir, $self->cpu, $self->db);
   my $max_target_seqs = $self->max_target_seqs;
+  my $evalue = $self->evalue;
+  my $outfmt = $self->outfmt;
   my @io_fas = io("$outdir")->filter( sub {
       $_->filename =~/\.fa/;
     }
@@ -217,7 +241,7 @@ sub submit_pbs {
   my $pbs = Bioinfo::PBS::Queue->new(name => $queue_name);
   for my $fa (@io_fas) {
     my $fa_name = $fa->filename;
-    my $cmd = "blastp -query $fa_name -out $fa_name.blast -db $db -outfmt 5 -evalue 1e-5 -num_threads $cpu -max_target_seqs 10";
+    my $cmd = "blastp -query $fa_name -out $fa_name.blast -db $db -outfmt $outfmt -evalue $evalue -num_threads $cpu -max_target_seqs $max_target_seqs";
     $fa_name =~s/\.fa|\.pep|\.fasta//;
     my $para = {
       cpu => $cpu,
