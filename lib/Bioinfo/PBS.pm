@@ -51,6 +51,17 @@ has name => (
   lazy => 1,
 );
 
+=head2 queue_name
+
+=cut
+
+has queue_name => (
+  is  => 'rw',
+  isa => 'Str',
+  default => sub { 'batch' },
+  lazy => 1,
+);
+
 =head2 cmd
 
 the command that will be submitted to cluster
@@ -158,7 +169,8 @@ sub qsub {
   my $self = shift;
   my $sh_name = $self->get_sh;
   my ($name, $cpu) = ($self->name, $self->cpu);
-  my $qsub_result = `qsub -l nodes=1:ppn=$cpu -N $name $sh_name`;
+  my $queue_name = $self->queue_name;
+  my $qsub_result = `qsub -l nodes=1:ppn=$cpu -q $queue_name -N $name $sh_name`;
   say "qsub result: $qsub_result\n";
   if ($qsub_result =~/^(\d+?)\./) {
     say "job_id: $1\n";
